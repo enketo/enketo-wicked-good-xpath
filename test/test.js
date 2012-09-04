@@ -10,6 +10,27 @@ goog.provide('wgxpath.test');
 
 goog.require('goog.dom');
 goog.require('goog.dom.NodeType');
+goog.require('goog.userAgent');
+
+
+/**
+ * Whether the browser is Android Froyo.
+ *
+ * @const
+ * @type {boolean}
+ */
+wgxpath.test.ANDROID_FROYO =
+    /Android\s+2\.2/.test(goog.userAgent.getUserAgentString());
+
+
+/**
+ * Whether the browser is IE and has a document mode < 9.
+ *
+ * @const
+ * @type {boolean}
+ */
+wgxpath.test.IE_DOC_PRE_9 =
+    goog.userAgent.IE && !goog.userAgent.isDocumentMode(9);
 
 
 /**
@@ -135,14 +156,24 @@ wgxpath.test.context_;
 
 
 /**
- * Sets up the context.
+ * Installs the library on the window of the given context node and sets this
+ * node to be the context for subsequent calls to the assertEvalutesTo* methods.
  *
  * @param {!Node} context The context to evaluate test cases in.
  */
 wgxpath.test.setContext = function(context) {
+  var win = goog.dom.getWindow(goog.dom.getOwnerDocument(context));
+
+  // The Android Froyo WebDriver injects an old XPath library automatically
+  // on the top window, which causes our installation to be a noop, unless we
+  // specifically delete that old implementation.
+  if (wgxpath.test.ANDROID_FROYO && win == win.top) {
+    win.document.evaluate = null;
+  }
+
+  wgxpath.install(win);
+  window.XPathResult = win.XPathResult;
   wgxpath.test.context_ = context;
-  window.XPathResult =
-      goog.dom.getWindow(goog.dom.getOwnerDocument(context)).XPathResult;
 };
 
 

@@ -18,11 +18,7 @@ Copyright 2012 Google Inc. All Rights Reserved.
   <div id="dupeid">My id is also dupeid</div>
   <div id="uniqueid">My id is uniqueid</div>
   <script>
-  var ANDROID_FROYO = /Android\s+2\.2/
-        .test(goog.userAgent.getUserAgentString());
-
     function setUpPage() {
-      wgxpath.install(this);
       wgxpath.test.setContext(document);
     }
 

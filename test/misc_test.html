@@ -18,14 +18,9 @@ Copyright 2012 Google Inc. All Rights Reserved.
   goog.require('wgxpath.test');
 </script>
 <script>
-  var IS_ANDROID_FROYO = /Android\s+2\.2/
-        .test(goog.userAgent.getUserAgentString());
-
   function setUpPage() {
     var testFrame = document.getElementById('testFrame');
-    wgxpath.install(testFrame.contentWindow);
-    var doc = testFrame.contentWindow.document;
-    wgxpath.test.setContext(doc);
+    wgxpath.test.setContext(testFrame.contentWindow.document);
   }
 
   function test00() {

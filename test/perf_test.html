@@ -19,7 +19,7 @@ Copyright 2012 Google Inc. All Rights Reserved.
   <iframe id="testFrame" src="perf_test_page.html"></iframe>
   <div id="perfTable"></div>
   <script>
-    var table, doc;
+    var table, body;
     var NUM_SAMPLES = 10;
     var TIMEOUT_INTERVAL = 9000;
     var DOES_DISCARD_OUTLIERS = true;
@@ -33,17 +33,16 @@ Copyright 2012 Google Inc. All Rights Reserved.
       table = new goog.testing.PerformanceTable(
           document.getElementById('perfTable'), timer);
       var testFrame = document.getElementById('testFrame');
-      doc = testFrame.contentWindow.document;
-      wgxpath.install(testFrame.contentWindow);
+      var doc = testFrame.contentWindow.document;
+      body = doc.body;
       var div = doc.getElementById('dummy');
       for (var i = 0; i < NUM_CHILD_DIVS; i++) {
-        doc.body.appendChild(div.cloneNode(true));
+        body.appendChild(div.cloneNode(true));
       }
-      wgxpath.test.setContext(doc.body);
+      wgxpath.test.setContext(body);
     }
 
     function tearDownPage() {
-      var body = doc.body;
       for (var i = 0; i < NUM_CHILD_DIVS; i++) {
         body.removeChild(body.lastChild);
       }

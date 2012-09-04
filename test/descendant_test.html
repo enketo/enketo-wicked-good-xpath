@@ -18,17 +18,13 @@ Copyright 2012 Google Inc. All Rights Reserved.
   goog.require('wgxpath.test');
 </script>
 <script>
-  var IE_DOC_PRE_9 = goog.userAgent.IE && !goog.userAgent.isDocumentMode(9);
-
   function setUpPage() {
     var testFrame = document.getElementById('testFrame');
-    wgxpath.install(testFrame.contentWindow);
-    var doc = testFrame.contentWindow.document;
-    wgxpath.test.setContext(doc);
+    wgxpath.test.setContext(testFrame.contentWindow.document);
   }
 
   function conditionTitleText(expected) {
-    if (!IE_DOC_PRE_9) {
+    if (!wgxpath.test.IE_DOC_PRE_9) {
       return expected;
     }
     for (var i = 0; i < expected.length; i++) {

@@ -19,10 +19,7 @@ Copyright 2012 Google Inc. All Rights Reserved.
 <script>
   function setUpPage() {
     var testFrame = document.getElementById('testFrame');
-    wgxpath.install(testFrame.contentWindow);
-    var doc = testFrame.contentWindow.document;
-    var context = doc.evaluate('/', doc, null, 7, null).snapshotItem(0);
-    wgxpath.test.setContext(context);
+    wgxpath.test.setContext(testFrame.contentWindow.document);
   }
 
   function test00() {
