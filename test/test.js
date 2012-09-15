@@ -34,6 +34,16 @@ wgxpath.test.IE_DOC_PRE_9 =
 
 
 /**
+ * Whether the browser is IE and has a document mode < 10.
+ *
+ * @const
+ * @type {boolean}
+ */
+wgxpath.test.IE_DOC_PRE_10 =
+    goog.userAgent.IE && !goog.userAgent.isDocumentMode(10);
+
+
+/**
  * Checks if a node matches the expected one.
  *
  * @param {string} expected The string representation of the expected node.

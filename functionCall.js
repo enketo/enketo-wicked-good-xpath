@@ -361,7 +361,7 @@ wgxpath.FunctionCall.Func = {
   NAMESPACE_URI: wgxpath.FunctionCall.createFunc_('namespace-uri',
       wgxpath.DataType.STRING, true, false, false,
       function(ctx, opt_expr) {
-        // TODO (gdennis): Fully implement this.
+        // TODO(user): Fully implement this.
         return '';
       }, 0, 1, true),
   NORMALIZE_SPACE: wgxpath.FunctionCall.createFunc_('normalize-space',

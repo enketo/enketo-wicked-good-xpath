@@ -169,7 +169,7 @@ wgxpath.XPathResult_['UNORDERED_NODE_ITERATOR_TYPE'] =
 wgxpath.XPathResult_['ORDERED_NODE_ITERATOR_TYPE'] =
     wgxpath.XPathResultType_.ORDERED_NODE_ITERATOR_TYPE;
 wgxpath.XPathResult_['UNORDERED_NODE_SNAPSHOT_TYPE'] =
-    wgxpath.XPathResultType_.UNORDERED_NODE_ITERATOR_TYPE;
+    wgxpath.XPathResultType_.UNORDERED_NODE_SNAPSHOT_TYPE;
 wgxpath.XPathResult_['ORDERED_NODE_SNAPSHOT_TYPE'] =
     wgxpath.XPathResultType_.ORDERED_NODE_SNAPSHOT_TYPE;
 wgxpath.XPathResult_['ANY_UNORDERED_NODE_TYPE'] =
