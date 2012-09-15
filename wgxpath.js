@@ -100,6 +100,12 @@ wgxpath.XPathResult_ = function(value, type) {
       throw Error('Unexpected evaluation result.');
     }
   }
+  if (type != wgxpath.XPathResultType_.STRING_TYPE &&
+      type != wgxpath.XPathResultType_.NUMBER_TYPE &&
+      type != wgxpath.XPathResultType_.BOOLEAN_TYPE &&
+      !(value instanceof wgxpath.NodeSet)) {
+    throw Error('document.evaluate called with wrong result type.');
+  }
   this['resultType'] = type;
   var nodes;
   switch (type) {
@@ -142,14 +148,14 @@ wgxpath.XPathResult_ = function(value, type) {
   this['iterateNext'] = function() {
     if (type != wgxpath.XPathResultType_.UNORDERED_NODE_ITERATOR_TYPE &&
         type != wgxpath.XPathResultType_.ORDERED_NODE_ITERATOR_TYPE) {
-      throw Error('iterateNext called with wrong result type');
+      throw Error('iterateNext called with wrong result type.');
     }
     return (index >= nodes.length) ? null : nodes[index++];
   };
   this['snapshotItem'] = function(i) {
     if (type != wgxpath.XPathResultType_.UNORDERED_NODE_SNAPSHOT_TYPE &&
         type != wgxpath.XPathResultType_.ORDERED_NODE_SNAPSHOT_TYPE) {
-      throw Error('snapshotItem called with wrong result type');
+      throw Error('snapshotItem called with wrong result type.');
     }
     return (i >= nodes.length || i < 0) ? null : nodes[i];
   };
