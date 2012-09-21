@@ -42,14 +42,15 @@ wgxpath.NameTest.HTML_NAMESPACE_ = 'http://www.w3.org/1999/xhtml';
  */
 wgxpath.NameTest.prototype.matches = function(node) {
   var type = node.nodeType;
-  if (type == goog.dom.NodeType.ELEMENT ||
-      type == goog.dom.NodeType.ATTRIBUTE) {
-    if (this.name_ == '*' || this.name_ == node.nodeName.toLowerCase()) {
-      return true;
-    } else {
-      var namespace = node.namespaceURI || wgxpath.NameTest.HTML_NAMESPACE_;
-      return this.name_ == namespace + ':*';
-    }
+  if (type != goog.dom.NodeType.ELEMENT &&
+      type != goog.dom.NodeType.ATTRIBUTE) {
+    return false;
+  }
+  if (this.name_ == '*' || this.name_ == node.nodeName.toLowerCase()) {
+    return true;
+  } else {
+    var namespace = node.namespaceURI || wgxpath.NameTest.HTML_NAMESPACE_;
+    return this.name_ == namespace + ':*';
   }
 };
 
