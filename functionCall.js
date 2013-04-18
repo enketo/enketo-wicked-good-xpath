@@ -228,7 +228,7 @@ wgxpath.FunctionCall.createFunc_ = function(name, dataType,
   var func = new wgxpath.FunctionCall.Func_(name, dataType,
       needContextPosition, needContextNodeWithoutArgs, needContextNodeWithArgs,
       evaluate, minArgs, opt_maxArgs, opt_nodesetsRequired);
-  func = (/** @type {!wgxpath.FunctionCall.Func} */ func);
+  func = /** @type {!wgxpath.FunctionCall.Func} */ (func);
   wgxpath.FunctionCall.nameToFuncMap_[name] = func;
   return func;
 };

@@ -53,19 +53,28 @@ wgxpath.XPathResultType_ = {
  * @constructor
  * @extends {XPathExpression}
  * @param {string} expr The expression string.
+ * @param {?(XPathNSResolver|function(string): ?string)} nsResolver
+ *     XPath namespace resolver.
  * @private
  */
-wgxpath.XPathExpression_ = function(expr) {
+wgxpath.XPathExpression_ = function(expr, nsResolver) {
   if (!expr.length) {
     throw Error('Empty XPath expression.');
   }
-
   var lexer = wgxpath.Lexer.tokenize(expr);
-
   if (lexer.empty()) {
     throw Error('Invalid XPath expression.');
   }
-  var gexpr = new wgxpath.Parser(lexer).parseExpr();
+
+  // nsResolver may either be an XPathNSResolver, which has a lookupNamespaceURI
+  // function, a custom function, or null. Standardize it to a function.
+  if (!nsResolver) {
+    nsResolver = function(string) {return null;};
+  } else if (!goog.isFunction(nsResolver)) {
+    nsResolver = goog.bind(nsResolver.lookupNamespaceURI, nsResolver);
+  }
+
+  var gexpr = new wgxpath.Parser(lexer, nsResolver).parseExpr();
   if (!lexer.empty()) {
     throw Error('Bad token: ' + lexer.next());
   }
@@ -190,11 +199,12 @@ wgxpath.install = function(opt_win) {
   // Installation is a noop if native XPath is available.
   if (!doc['evaluate']) {
     win['XPathResult'] = wgxpath.XPathResult_;
-    doc['evaluate'] = function(expr, context, nsresolver, type, result) {
-      return new wgxpath.XPathExpression_(expr).evaluate(context, type);
+    doc['evaluate'] = function(expr, context, nsResolver, type, result) {
+      return new wgxpath.XPathExpression_(expr, nsResolver).
+          evaluate(context, type);
     };
-    doc['createExpression'] = function(expr) {
-      return new wgxpath.XPathExpression_(expr);
+    doc['createExpression'] = function(expr, nsResolver) {
+      return new wgxpath.XPathExpression_(expr, nsResolver);
     };
   }
 };

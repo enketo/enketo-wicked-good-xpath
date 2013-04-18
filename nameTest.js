@@ -14,27 +14,37 @@ goog.require('goog.dom.NodeType');
  * Constructs a NameTest based on the xpath grammar:
  * http://www.w3.org/TR/xpath/#NT-NameTest
  *
+ * <p>If no namespace is provided, the default HTML namespace is used.
+ *
  * @param {string} name Name to be tested.
+ * @param {string=} opt_namespaceUri Namespace URI; defaults to HTML namespace.
  * @constructor
  * @implements {wgxpath.NodeTest}
  */
-wgxpath.NameTest = function(name) {
+wgxpath.NameTest = function(name, opt_namespaceUri) {
   /**
    * @type {string}
    * @private
    */
   this.name_ = name.toLowerCase();
+
+  /**
+   * @type {string}
+   * @private
+   */
+  this.namespaceUri_ = opt_namespaceUri ? opt_namespaceUri.toLowerCase() :
+      wgxpath.NameTest.HTML_NAMESPACE_URI_;
 };
 
 
 /**
- * The default namespace for XHTML nodes.
+ * The default namespace URI for XHTML nodes.
  *
  * @const
  * @type {string}
  * @private
  */
-wgxpath.NameTest.HTML_NAMESPACE_ = 'http://www.w3.org/1999/xhtml';
+wgxpath.NameTest.HTML_NAMESPACE_URI_ = 'http://www.w3.org/1999/xhtml';
 
 
 /**
@@ -46,11 +56,12 @@ wgxpath.NameTest.prototype.matches = function(node) {
       type != goog.dom.NodeType.ATTRIBUTE) {
     return false;
   }
-  if (this.name_ == '*' || this.name_ == node.nodeName.toLowerCase()) {
-    return true;
+  if (this.name_ != '*' && this.name_ != node.nodeName.toLowerCase()) {
+    return false;
   } else {
-    var namespace = node.namespaceURI || wgxpath.NameTest.HTML_NAMESPACE_;
-    return this.name_ == namespace + ':*';
+    var namespaceUri = node.namespaceURI ? node.namespaceURI.toLowerCase() :
+        wgxpath.NameTest.HTML_NAMESPACE_URI_;
+    return this.namespaceUri_ == namespaceUri;
   }
 };
 
@@ -64,9 +75,21 @@ wgxpath.NameTest.prototype.getName = function() {
 
 
 /**
+ * Returns the namespace URI to be matched.
+ *
+ * @return {string} Namespace URI.
+ */
+wgxpath.NameTest.prototype.getNamespaceUri = function() {
+  return this.namespaceUri_;
+};
+
+
+/**
  * @override
  */
 wgxpath.NameTest.prototype.toString = function(opt_indent) {
   var indent = opt_indent || '';
-  return indent + 'nametest: ' + this.name_;
+  var prefix = this.namespaceUri_ == wgxpath.NameTest.HTML_NAMESPACE_URI_ ?
+      '' : this.namespaceUri_ + ':';
+  return indent + 'nametest: ' + prefix + this.name_;
 };

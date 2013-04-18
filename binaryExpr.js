@@ -249,9 +249,9 @@ wgxpath.BinaryExpr.createOp_ = function(opString, precedence, dataType,
     throw new Error('Binary operator already created: ' + opString);
   }
   // The upcast and then downcast for the JSCompiler.
-  var op = (/** @type {!Object} */ new wgxpath.BinaryExpr.Op_(
+  var op = /** @type {!Object} */ (new wgxpath.BinaryExpr.Op_(
       opString, precedence, dataType, evaluate));
-  op = (/** @type {!wgxpath.BinaryExpr.Op} */ op);
+  op = /** @type {!wgxpath.BinaryExpr.Op} */ (op);
   wgxpath.BinaryExpr.stringToOpMap_[op.toString()] = op;
   return op;
 };

@@ -30,7 +30,7 @@ wgxpath.test.ANDROID_FROYO =
  * @type {boolean}
  */
 wgxpath.test.IE_DOC_PRE_9 =
-    goog.userAgent.IE && !goog.userAgent.isDocumentMode(9);
+    goog.userAgent.IE && !goog.userAgent.isDocumentModeOrHigher(9);
 
 
 /**
@@ -40,7 +40,7 @@ wgxpath.test.IE_DOC_PRE_9 =
  * @type {boolean}
  */
 wgxpath.test.IE_DOC_PRE_10 =
-    goog.userAgent.IE && !goog.userAgent.isDocumentMode(10);
+    goog.userAgent.IE && !goog.userAgent.isDocumentModeOrHigher(10);
 
 
 /**
@@ -159,7 +159,7 @@ wgxpath.test.NON_ELEMENT_NAME_TO_TYPE_MAP_ = {
 /**
  * The context to evaluate test cases in.
  *
- * @type {!Node}
+ * @type {{node: !Node, doc: !Document, nsResolver: XPathNSResolver}}
  * @private
  */
 wgxpath.test.context_;
@@ -169,10 +169,11 @@ wgxpath.test.context_;
  * Installs the library on the window of the given context node and sets this
  * node to be the context for subsequent calls to the assertEvalutesTo* methods.
  *
- * @param {!Node} context The context to evaluate test cases in.
+ * @param {!Node} node The context node to evaluate test cases in.
  */
-wgxpath.test.setContext = function(context) {
-  var win = goog.dom.getWindow(goog.dom.getOwnerDocument(context));
+wgxpath.test.setContext = function(node) {
+  var doc = goog.dom.getOwnerDocument(node);
+  var win = goog.dom.getWindow(doc);
 
   // The Android Froyo WebDriver injects an old XPath library automatically
   // on the top window, which causes our installation to be a noop, unless we
@@ -183,7 +184,11 @@ wgxpath.test.setContext = function(context) {
 
   wgxpath.install(win);
   window.XPathResult = win.XPathResult;
-  wgxpath.test.context_ = context;
+
+  // TODO(user): Export a JS implementation of createNSResolver.
+  var nsResolver = doc.createNSResolver ?
+    doc.createNSResolver(doc.documentElement) : null;
+  wgxpath.test.context_ = {node: node, doc: doc, nsResolver: nsResolver};
 };
 
 
@@ -192,15 +197,17 @@ wgxpath.test.setContext = function(context) {
  *
  * @param {string} expr The expression to evaluate.
  * @param {number} type The type of the xpath result to return.
+ * @param {(function(string): ?string)=} opt_nsResolver
+ *     Optional custom namespace resolver.
  * @return {!XPathResult} The evaluation result.
  * @private
  */
-wgxpath.test.evaluatePath_ = function(expr, type) {
-  var doc = goog.dom.getOwnerDocument(wgxpath.test.context_);
+wgxpath.test.evaluatePath_ = function(expr, type, opt_nsResolver) {
+  var nsResolver = goog.isDef(opt_nsResolver) ? opt_nsResolver :
+      wgxpath.test.context_.nsResolver;
   var startTime = goog.now();
-  var result = doc.evaluate(expr, wgxpath.test.context_,
-      /* namespaceResolver */ null, type,
-      /* result */ null);
+  var result = wgxpath.test.context_.doc.evaluate(
+      expr, wgxpath.test.context_.node, nsResolver, type, /* result */ null);
   // TODO(user): Use this number for benchmarking eventually.
   var elapsedTime = goog.now() - startTime;
   return result;
@@ -212,10 +219,13 @@ wgxpath.test.evaluatePath_ = function(expr, type) {
  *
  * @param {!Array.<string>} expected The expected result.
  * @param {string} expr The expression to evaluate.
+ * @param {(function(string): ?string)=} opt_nsResolver
+ *     Optional custom namespace resolver.
  */
-wgxpath.test.assertEvaluatesToNodeSet = function(expected, expr) {
-  var result = wgxpath.test.evaluatePath_(expr,
-      XPathResult.ORDERED_NODE_SNAPSHOT_TYPE);
+wgxpath.test.assertEvaluatesToNodeSet = function(expected, expr,
+    opt_nsResolver) {
+  var result = wgxpath.test.evaluatePath_(
+      expr, XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, opt_nsResolver);
   assertEquals(expected.length, result.snapshotLength);
   for (var i = 0; i < result.snapshotLength; i++) {
     assert(wgxpath.test.isNodeExpected_(expected[i], result.snapshotItem(i)));
@@ -228,9 +238,12 @@ wgxpath.test.assertEvaluatesToNodeSet = function(expected, expr) {
  *
  * @param {(string|boolean|number)} expected The expected result.
  * @param {string} expr The expression to evaluate.
+ * @param {(XPathNSResolver|function(string): ?string)=} opt_nsResolver
+ *     Optional namespace resolver.
  */
-wgxpath.test.assertEvaluatesToValue = function(expected, expr) {
-  var result = wgxpath.test.evaluatePath_(expr, XPathResult.ANY_TYPE);
+wgxpath.test.assertEvaluatesToValue = function(expected, expr, opt_nsResolver) {
+  var result = wgxpath.test.evaluatePath_(
+      expr, XPathResult.ANY_TYPE, opt_nsResolver);
   if (result.resultType == XPathResult.NUMBER_TYPE) {
     assertEquals(expected, result.numberValue);
   } else if (result.resultType == XPathResult.STRING_TYPE) {

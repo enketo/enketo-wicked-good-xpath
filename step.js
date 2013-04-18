@@ -153,7 +153,7 @@ wgxpath.Step.prototype.doesIncludeDescendants = function() {
  * @return {!wgxpath.Step.Axis} The axis.
  */
 wgxpath.Step.prototype.getAxis = function() {
-  return (/** @type {!wgxpath.Step.Axis} */ this.axis_);
+  return /** @type {!wgxpath.Step.Axis} */ (this.axis_);
 };
 
 
@@ -277,9 +277,9 @@ wgxpath.Step.createAxis_ =
     throw Error('Axis already created: ' + name);
   }
   // The upcast and then downcast for the JSCompiler.
-  var axis = (/** @type {!Object} */ new wgxpath.Step.Axis_(
+  var axis = /** @type {!Object} */ (new wgxpath.Step.Axis_(
       name, func, reverse, !!opt_supportsQuickAttr));
-  axis = (/** @type {!wgxpath.Step.Axis} */ axis);
+  axis = /** @type {!wgxpath.Step.Axis} */ (axis);
   wgxpath.Step.nameToAxisMap_[name] = axis;
   return axis;
 };

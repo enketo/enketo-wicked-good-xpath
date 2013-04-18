@@ -18,8 +18,8 @@ Copyright 2012 Google Inc. All Rights Reserved.
   goog.require('wgxpath.test');
 </script>
 <script>
-  var GECKO_PRE_2 = goog.userAgent.GECKO && !goog.userAgent.isVersion(2);
-  var OPERA_PRE_12 = goog.userAgent.OPERA && !goog.userAgent.isVersion(12);
+  var GECKO_PRE_2 = goog.userAgent.GECKO && !goog.userAgent.isVersionOrHigher(2);
+  var OPERA_PRE_12 = goog.userAgent.OPERA && !goog.userAgent.isVersionOrHigher(12);
 
   function setUpPage() {
     var testFrame = document.getElementById('testFrame');
@@ -272,7 +272,7 @@ Copyright 2012 Google Inc. All Rights Reserved.
     // In Gecko >= 1.9.3, the name() function returns uppercase characters.
     // See comment here: https://bugzilla.mozilla.org/show_bug.cgi?id=566629#c13
     // For XML docs, the spec requires lowercase, but it's ambiguous for HTML.
-    if (goog.userAgent.GECKO && goog.userAgent.isVersion('1.9.3')) {
+    if (goog.userAgent.GECKO && goog.userAgent.isVersionOrHigher('1.9.3')) {
       wgxpath.test.assertEvaluatesToNodeSet(['sub'], './/*[name(.) = "SUB"]');
       wgxpath.test.assertEvaluatesToNodeSet(['sub'], './/*[name() = "SUB"]');
     } else {
