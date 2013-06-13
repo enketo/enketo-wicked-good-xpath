@@ -100,11 +100,10 @@ wgxpath.KindTest.prototype.getName = function() {
 /**
  * @override
  */
-wgxpath.KindTest.prototype.toString = function(opt_indent) {
-  var indent = opt_indent || '';
-  var text = indent + 'kindtest: ' + this.typeName_;
+wgxpath.KindTest.prototype.toString = function() {
+  var text = 'Kind Test: ' + this.typeName_;
   if (!goog.isNull(this.literal_)) {
-    text += '\n' + this.literal_.toString(indent + wgxpath.Expr.INDENT);
+    text += wgxpath.Expr.indent(this.literal_);
   }
   return text;
 };

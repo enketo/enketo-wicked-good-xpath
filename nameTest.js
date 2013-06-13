@@ -87,9 +87,8 @@ wgxpath.NameTest.prototype.getNamespaceUri = function() {
 /**
  * @override
  */
-wgxpath.NameTest.prototype.toString = function(opt_indent) {
-  var indent = opt_indent || '';
+wgxpath.NameTest.prototype.toString = function() {
   var prefix = this.namespaceUri_ == wgxpath.NameTest.HTML_NAMESPACE_URI_ ?
       '' : this.namespaceUri_ + ':';
-  return indent + 'nametest: ' + prefix + this.name_;
+  return 'Name Test: ' + prefix + this.name_;
 };

@@ -322,8 +322,6 @@ wgxpath.Parser.prototype.parsePathExpr_ = function() {
  * @return {!wgxpath.Step} The parsed expression.
  */
 wgxpath.Parser.prototype.parseStep_ = function(op) {
-  // TODO (evanrthomas) : Let parseStep see op instead of passing it
-  //     as a parameter
   var test, step, token, predicates;
   if (op != '/' && op != '//') {
     throw Error('Step op should be "/" or "//"');

@@ -155,12 +155,10 @@ wgxpath.BinaryExpr.prototype.evaluate = function(ctx) {
 /**
  * @override
  */
-wgxpath.BinaryExpr.prototype.toString = function(opt_indent) {
-  var indent = opt_indent || '';
-  var text = indent + 'binary expression: ' + this.op_ + '\n';
-  indent += wgxpath.Expr.INDENT;
-  text += this.left_.toString(indent) + '\n';
-  text += this.right_.toString(indent);
+wgxpath.BinaryExpr.prototype.toString = function() {
+  var text = 'Binary Expression: ' + this.op_;
+  text += wgxpath.Expr.indent(this.left_);
+  text += wgxpath.Expr.indent(this.right_);
   return text;
 };
 
