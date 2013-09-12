@@ -19,3 +19,9 @@ folder structure:
               |_build
                    compiler.jar
 ````
+
+###How to test
+1. Use Web Server (e.g. MAMP/XAMP/WAMP)
+2. Point Apache webroot to wgxp-java-rosa
+3. Run tests by browsing to e.g. (port number will differ) http://localhost:8888/test_openrosa/
+4. Run 1st of 4 options

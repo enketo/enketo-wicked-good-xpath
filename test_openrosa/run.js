@@ -57,8 +57,7 @@ YUI().use("node", "test-console", function (Y) {
 		];
 		
 		if (!useNative) {
-			scripts.push("../src/engine.js");
-			scripts.push("../build/parser.js");
+			scripts.push("../wgxpath.install.js");
 		}
 		
 		// load all xpath scripts for this library
@@ -68,12 +67,8 @@ YUI().use("node", "test-console", function (Y) {
 				e.purge();
 				
 				if (!useNative) {
-					// initialize xpathjs
-					win.XPathJS.bindDomLevel3XPath(
-						win.XPathJS.createDomLevel3XPathBindings({
-							'case-sensitive': (useXml) ? true : false
-						})
-					);
+					// initialize wgxp-java-rosa
+					win.wgxpath.install(win);
 				}
 				
 				runTests(win);
