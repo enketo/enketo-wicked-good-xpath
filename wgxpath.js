@@ -188,7 +188,7 @@ wgxpath.XPathResult_['FIRST_ORDERED_NODE_TYPE'] =
 
 
 /**
- * Installs the library. This is a noop if native XPath is available.
+ * Installs the library. Overwrites native XPath if available.
  *
  * @param {Window=} opt_win The window to install the library on.
  */
@@ -196,15 +196,13 @@ wgxpath.install = function(opt_win) {
   var win = opt_win || goog.global;
   var doc = win.document;
 
-  // Installation is a noop if native XPath is available.
-  if (!doc['evaluate']) {
-    win['XPathResult'] = wgxpath.XPathResult_;
-    doc['evaluate'] = function(expr, context, nsResolver, type, result) {
-      return new wgxpath.XPathExpression_(expr, nsResolver).
-          evaluate(context, type);
-    };
-    doc['createExpression'] = function(expr, nsResolver) {
-      return new wgxpath.XPathExpression_(expr, nsResolver);
-    };
-  }
+  // Installation, overwriting native XPath (if exists).
+  win['XPathResult'] = wgxpath.XPathResult_;
+  doc['evaluate'] = function(expr, context, nsResolver, type, result) {
+    return new wgxpath.XPathExpression_(expr, nsResolver).
+        evaluate(context, type);
+  };
+  doc['createExpression'] = function(expr, nsResolver) {
+    return new wgxpath.XPathExpression_(expr, nsResolver);
+  };
 };

@@ -264,6 +264,7 @@ wgxpath.FunctionCall.Func = {
   CONCAT: wgxpath.FunctionCall.createFunc_('concat',
       wgxpath.DataType.STRING, false, false, false,
       function(ctx, var_args) {
+        window.console.log('inside wgxp concat function');
         var exprs = goog.array.slice(arguments, 1);
         return goog.array.reduce(exprs, function(prev, curr) {
           return prev + curr.asString(ctx);
