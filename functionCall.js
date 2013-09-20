@@ -264,12 +264,14 @@ wgxpath.FunctionCall.Func = {
   CONCAT: wgxpath.FunctionCall.createFunc_('concat',
       wgxpath.DataType.STRING, false, false, false,
       function(ctx, var_args) {
-        window.console.log('inside wgxp concat function');
-        var exprs = goog.array.slice(arguments, 1);
+          if(arguments.length == 0) {
+              return '';
+          }
+          var exprs = goog.array.slice(arguments, 1);
         return goog.array.reduce(exprs, function(prev, curr) {
           return prev + curr.asString(ctx);
         }, '');
-      }, 2, null),
+      }, 0, null),
   CONTAINS: wgxpath.FunctionCall.createFunc_('contains',
       wgxpath.DataType.BOOLEAN, false, false, false,
       function(ctx, expr1, expr2) {

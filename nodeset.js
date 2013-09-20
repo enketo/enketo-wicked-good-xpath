@@ -205,8 +205,12 @@ wgxpath.NodeSet.prototype.getLength = function() {
  * @return {string} The string representation of this nodeset.
  */
 wgxpath.NodeSet.prototype.string = function() {
-  var node = this.getFirst();
-  return node ? wgxpath.Node.getValueAsString(node) : '';
+  var value = '';
+  var iterator = this.iterator();
+  for (var node = iterator.next(); node; node = iterator.next()) {
+     value += wgxpath.Node.getValueAsString(node);
+  }
+  return value;
 };
 
 
