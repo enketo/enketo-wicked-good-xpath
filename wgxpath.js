@@ -24,6 +24,7 @@ goog.require('wgxpath.IEAttrWrapper');
 goog.require('wgxpath.Lexer');
 goog.require('wgxpath.NodeSet');
 goog.require('wgxpath.Parser');
+goog.require('wgxpath.nsResolver');
 
 
 /**
@@ -187,6 +188,20 @@ wgxpath.XPathResult_['FIRST_ORDERED_NODE_TYPE'] =
     wgxpath.XPathResultType_.FIRST_ORDERED_NODE_TYPE;
 
 
+
+/**
+ * The exported XPathNSResolver type.
+ *
+ * @constructor
+ * @extends {XPathNSResolver}
+ * @param {!Node} node Context node for the namespace resolution.
+ * @private
+ */
+wgxpath.XPathNSResolver_ = function(node) {
+  this['lookupNamespaceURI'] = wgxpath.nsResolver.getResolver(node);
+};
+
+
 /**
  * Installs the library. Overwrites native XPath if available.
  *
@@ -204,5 +219,8 @@ wgxpath.install = function(opt_win) {
   };
   doc['createExpression'] = function(expr, nsResolver) {
     return new wgxpath.XPathExpression_(expr, nsResolver);
+  };
+  doc['createNSResolver'] = function(node) {
+    return new wgxpath.XPathNSResolver_(node);
   };
 };

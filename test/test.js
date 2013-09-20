@@ -159,7 +159,7 @@ wgxpath.test.NON_ELEMENT_NAME_TO_TYPE_MAP_ = {
 /**
  * The context to evaluate test cases in.
  *
- * @type {{node: !Node, doc: !Document, nsResolver: XPathNSResolver}}
+ * @type {{node: !Node, doc: !Document, nsResolver: !XPathNSResolver}}
  * @private
  */
 wgxpath.test.context_;
@@ -185,9 +185,7 @@ wgxpath.test.setContext = function(node) {
   wgxpath.install(win);
   window.XPathResult = win.XPathResult;
 
-  // TODO(user): Export a JS implementation of createNSResolver.
-  var nsResolver = doc.createNSResolver ?
-    doc.createNSResolver(doc.documentElement) : null;
+  var nsResolver = doc.createNSResolver(doc.documentElement);
   wgxpath.test.context_ = {node: node, doc: doc, nsResolver: nsResolver};
 };
 
@@ -208,7 +206,7 @@ wgxpath.test.evaluatePath_ = function(expr, type, opt_nsResolver) {
   var startTime = goog.now();
   var result = wgxpath.test.context_.doc.evaluate(
       expr, wgxpath.test.context_.node, nsResolver, type, /* result */ null);
-  // TODO(user): Use this number for benchmarking eventually.
+  // TODO: Use this number for benchmarking eventually.
   var elapsedTime = goog.now() - startTime;
   return result;
 };
