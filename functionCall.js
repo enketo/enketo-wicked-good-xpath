@@ -219,7 +219,7 @@ wgxpath.FunctionCall.nameToFuncMap_ = {};
 wgxpath.FunctionCall.createFunc_ = function(name, dataType,
     needContextPosition, needContextNodeWithoutArgs, needContextNodeWithArgs,
     evaluate, minArgs, opt_maxArgs, opt_nodesetsRequired) {
-  if (name in wgxpath.FunctionCall.nameToFuncMap_) {
+  if (wgxpath.FunctionCall.nameToFuncMap_.hasOwnProperty(name)) {
     throw new Error('Function already created: ' + name + '.');
   }
   var func = new wgxpath.FunctionCall.Func_(name, dataType,
