@@ -1926,6 +1926,27 @@ YUI.add('xpathjs-test', function (Y) {
 					result = documentEvaluate(input[i][0], input[i][1], null, win.XPathResult.STRING_TYPE, null);
 					Y.Assert.areSame(input[i][2], result.stringValue);
 				}
+			},
+
+			testPow: function( ) {
+				var result, input, i;
+
+				input = [
+					[ "pow(2, 2)", doc, 4 ],
+					[ "pow(2, 0)", doc, 1 ],
+					[ "pow(0,4)", doc, 0 ],
+					[ "pow(2.5, 2)", doc, 6.25 ],
+					[ "pow(0.5, 2)", doc, 0.25 ],
+					[ "pow(-1, 2)", doc, 1 ],
+					[ "pow(-1, 3)", doc, -1 ],
+					[ "pow(4, 0.5)", doc, 2 ],
+					[ "pow(16, 0.25)", doc, 2 ]
+				];
+
+				for ( i = 0; i < input.length; i++ ) {
+					result = documentEvaluate( input[ i ][ 0 ], input[ i ][ 1 ], null, win.XPathResult.NUMBER_TYPE, null );
+					Y.Assert.areSame( input[ i ][ 2 ], result.numberValue );
+				}
 			}
 
 			/**********************************************************************************************/
