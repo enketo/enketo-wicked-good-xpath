@@ -228,3 +228,5 @@ wgxpath.install = function(opt_win) {
     return new wgxpath.XPathNSResolver_(node);
   };
 };
+
+goog.exportSymbol('wgxpath.install', wgxpath.install);
