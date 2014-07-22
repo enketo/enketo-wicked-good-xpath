@@ -346,7 +346,7 @@ wgxpath.FunctionCall.Func = {
       wgxpath.DataType.STRING, false, true, false,
       function(ctx, opt_expr) {
         var node = opt_expr ? opt_expr.evaluate(ctx).getFirst() : ctx.getNode();
-        return node ? node.nodeName.toLowerCase() : '';
+        return node ? (node.localName || node.nodeName.toLowerCase()) : '';
       }, 0, 1, true),
   NAME: wgxpath.FunctionCall.createFunc_('name',
       wgxpath.DataType.STRING, false, true, false,

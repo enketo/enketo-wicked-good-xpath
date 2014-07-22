@@ -16,6 +16,10 @@ goog.require('goog.dom.NodeType');
 wgxpath.nsResolver.getResolver = function(node) {
   // Adopted from W3C psuedocode specification:
   // http://www.w3.org/TR/DOM-Level-3-Core/namespaces-algorithms.html
+  //
+  // [03/2014] changed NodeType.ATTRIBUTE handling (always return nullResolver_)
+  // following DOM4 spec, Chrome, Firefox dropping attr.ownerElement attribute:
+  // http://groups.google.com/a/chromium.org/forum/#!topic/blink-dev/ai6_ySyVITg
 
   switch (node.nodeType) {
     case goog.dom.NodeType.ELEMENT:
@@ -23,12 +27,6 @@ wgxpath.nsResolver.getResolver = function(node) {
 
     case goog.dom.NodeType.DOCUMENT:
       return wgxpath.nsResolver.getResolver(node.documentElement);
-
-    case goog.dom.NodeType.ATTRIBUTE:
-      if (node.ownerElement) {
-        return wgxpath.nsResolver.getResolver(node.ownerElement);
-      }
-      return wgxpath.nsResolver.nullResolver_;
 
     case goog.dom.NodeType.DOCUMENT_FRAGMENT:
     case goog.dom.NodeType.DOCUMENT_TYPE:
