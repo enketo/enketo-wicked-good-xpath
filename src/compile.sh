@@ -1,12 +1,14 @@
 #!/bin/sh
-python ../closure-library/closure/bin/build/closurebuilder.py \
-    --root ../closure-library \
-    --root . \
-    --namespace wgxpath \
-    --output_mode compiled \
-    --compiler_jar ../closure-compiler/build/compiler.jar \
-    --compiler_flags "--compilation_level=ADVANCED_OPTIMIZATIONS" \
-    --compiler_flags "--output_wrapper=(function(){%output%})()" \
-    --compiler_flags "--use_types_for_optimization" \
-    --compiler_flags "--warning_level=VERBOSE" \
-    > wgxpath.install.js
+mkdir -p ../build
+java -jar ../../closure-compiler/build/compiler.jar \
+    --closure_entry_point wgxpath \
+    --compilation_level ADVANCED_OPTIMIZATIONS \
+    --js *.js \
+    --js !test_js_deps.js \
+    --js ../../closure-library/closure/**.js \
+    --js ../../closure-library/closure/!**_test.js \
+    --only_closure_dependencies \
+    --output_wrapper "(function(){%output%})()" \
+    --use_types_for_optimization \
+    --warning_level VERBOSE \
+    > ../build/wgxpath.install.js
