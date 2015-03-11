@@ -21,7 +21,8 @@ folder structure:
 ````
 
 ###How to test
-1. `grunt karma` will test in PhantomJS, Chrome, Safari, Firefox and Opera
+1. install test dependencies with `npm install`
+2. `grunt karma` will test in PhantomJS, Chrome, Safari, Firefox and Opera
 
 ### How to merge from [master project](https://code.google.com/p/wicked-good-xpath/)
 1. create a local git clone from the SVN repository with `git svn clone http://wicked-good-xpath.googlecode.com/svn/trunk/`
