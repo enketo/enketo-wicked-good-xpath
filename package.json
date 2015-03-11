@@ -1,0 +1,37 @@
+{
+  "name": "enketo-wicked-good-xpath",
+  "description": "JS implementation of XPath extended with OpenRosa functions and the date datatype",
+  "homepage": "https://enketo.org",
+  "version": "0.0.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/enketo/enketo-wicked-good-xpath"
+  },
+  "scripts": {
+    "test": "grunt test"
+  },
+  "contributors": [
+    "Martijn van de Rijdt",
+    "Michael Zhou",
+    "G Dennis",
+    "Kiran G",
+    "Angshuman Sarkar"
+  ],
+  "devDependencies": {
+    "chai": "^2.1.1",
+    "grunt": "0.4.x",
+    "grunt-karma": "^0.10.1",
+    "grunt-mocha-test": "^0.12.7",
+    "grunt-php": "^0.3.2",
+    "karma": "^0.12.31",
+    "karma-chai": "^0.1.0",
+    "karma-chrome-launcher": "^0.1.7",
+    "karma-firefox-launcher": "^0.1.4",
+    "karma-mocha": "^0.1.10",
+    "karma-opera-launcher": "^0.1.0",
+    "karma-phantomjs-launcher": "^0.1.4",
+    "karma-safari-launcher": "^0.1.1",
+    "mocha": "^2.1.0",
+    "time-grunt": "^1.1.0"
+  }
+}
