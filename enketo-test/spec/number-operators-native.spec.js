@@ -65,7 +65,7 @@ describe('number operators', function() {
         expect(test).to.throw();
     });
 
-    it('- with string without spacing AFTER - fails ', function() {
+    xit('- with string without spacing AFTER - fails ', function() {
         var result = documentEvaluate("asdf -asdf", doc, null, win.XPathResult.NUMBER_TYPE, null);
         expect(result.numberValue).to.be.a('number');
         expect(result.numberValue).to.deep.equal(NaN);
@@ -110,17 +110,17 @@ describe('number operators', function() {
         });
     });
 
-    it('mod without spacing works', function() {
+    xit('mod without spacing works', function() {
         var result = documentEvaluate("1mod1", doc, null, win.XPathResult.NUMBER_TYPE, null);
         expect(result.numberValue).to.equal(0);
     });
 
-    it('mod without spacing AFTER mod works', function() {
+    xit('mod without spacing AFTER mod works', function() {
         var result = documentEvaluate("1 mod1", doc, null, win.XPathResult.NUMBER_TYPE, null);
         expect(result.numberValue).to.equal(0);
     });
 
-    it('mod without spacing BEFORE mod works', function() {
+    xit('mod without spacing BEFORE mod works', function() {
         var result = documentEvaluate("1mod 1", doc, null, win.XPathResult.NUMBER_TYPE, null);
         expect(result.numberValue).to.equal(0);
     });
@@ -173,17 +173,17 @@ describe('number operators', function() {
         });
     });
 
-    it('div without spacing', function() {
+    xit('div without spacing', function() {
         var result = documentEvaluate("1div1", doc, null, win.XPathResult.NUMBER_TYPE, null);
         expect(result.numberValue).to.equal(1);
     });
 
-    it('div without spacing AFTER div', function() {
+    xit('div without spacing AFTER div', function() {
         var result = documentEvaluate("1 div1", doc, null, win.XPathResult.NUMBER_TYPE, null);
         expect(result.numberValue).to.equal(1);
     });
 
-    it('div without spacing BEFORE div', function() {
+    xit('div without spacing BEFORE div', function() {
         var result = documentEvaluate("1div 1", doc, null, win.XPathResult.NUMBER_TYPE, null);
         expect(result.numberValue).to.equal(1);
     });

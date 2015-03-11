@@ -28,7 +28,7 @@ describe('Union operator', function() {
         ]);
     });
 
-    it('combines elements and attributs if they refer to different trees', function() {
+    it('combines elements and attributes if they refer to different trees', function() {
         checkNodeResult("id('eee40')/attribute::*[1] | id('eee20')", doc, [
             doc.getElementById('eee20'),
             filterAttributes(doc.getElementById('eee40').attributes)[0]
@@ -77,7 +77,7 @@ describe('Union operator', function() {
         ]);
     });
 
-    it('combines a namespace and attribute on the same element', function() {
+    xit('combines a namespace and attribute on the same element', function() {
         var result = documentEvaluate("id('nss25')/namespace::*", doc, null, win.XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null);
 
         checkNodeResult("id('nss25')/namespace::* | id('nss25')/attribute::*", doc,
@@ -95,7 +95,7 @@ describe('Union operator', function() {
         );
     });
 
-    it('combines a namespace and attribute', function() {
+    xit('combines a namespace and attribute', function() {
         var result = documentEvaluate("id('nss40')/namespace::*", doc, null, win.XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null); //
 
         checkNodeResult("id('nss40')/namespace::* | id('nss25')/attribute::* | id('nss25')", doc, [
