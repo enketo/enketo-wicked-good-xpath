@@ -3,9 +3,10 @@ target/
 .classpath
 .settings/
 .DS_Store
-.idea/
+.idea
 *.iml
 *.ipr
 *.iws
 logfile
 *.log*
+node_modules
