@@ -109,7 +109,7 @@ wgxpath.FunctionCall.prototype.toString = function() {
  *     context node when not given arguments.
  * @param {boolean} needContextNodeWithArgs Whether the function needs a context
  *     node when the function is given arguments.
- * @param {function(!wgxpath.Context, ...[!wgxpath.Expr]):*} evaluate
+ * @param {function(!wgxpath.Context, ...!wgxpath.Expr):*} evaluate
  *     Evaluates the function in a context with any number of expression
  *     arguments.
  * @param {number} minArgs Minimum number of arguments accepted by the function.
@@ -153,7 +153,7 @@ wgxpath.FunctionCall.Func_ = function(name, dataType, needContextPosition,
   this.needContextNodeWithArgs_ = needContextNodeWithArgs;
 
   /**
-   * @type {function(!wgxpath.Context, ...[!wgxpath.Expr]):*}
+   * @type {function(!wgxpath.Context, ...!wgxpath.Expr):*}
    * @private
    */
   this.evaluate_ = evaluate;
@@ -206,7 +206,7 @@ wgxpath.FunctionCall.nameToFuncMap_ = {};
  *     context node when not given arguments.
  * @param {boolean} needContextNodeWithArgs Whether the function needs a context
  *     node when the function is given arguments.
- * @param {function(!wgxpath.Context, ...[!wgxpath.Expr]):*} evaluate
+ * @param {function(!wgxpath.Context, ...!wgxpath.Expr):*} evaluate
  *     Evaluates the function in a context with any number of expression
  *     arguments.
  * @param {number} minArgs Minimum number of arguments accepted by the function.
@@ -219,7 +219,7 @@ wgxpath.FunctionCall.nameToFuncMap_ = {};
 wgxpath.FunctionCall.createFunc_ = function(name, dataType,
     needContextPosition, needContextNodeWithoutArgs, needContextNodeWithArgs,
     evaluate, minArgs, opt_maxArgs, opt_nodesetsRequired) {
-  if (name in wgxpath.FunctionCall.nameToFuncMap_) {
+  if (wgxpath.FunctionCall.nameToFuncMap_.hasOwnProperty(name)) {
     throw new Error('Function already created: ' + name + '.');
   }
   var func = new wgxpath.FunctionCall.Func_(name, dataType,
@@ -349,7 +349,7 @@ wgxpath.FunctionCall.Func = {
       wgxpath.DataType.STRING, false, true, false,
       function(ctx, opt_expr) {
         var node = opt_expr ? opt_expr.evaluate(ctx).getFirst() : ctx.getNode();
-        return node ? node.nodeName.toLowerCase() : '';
+        return node ? (node.localName || node.nodeName.toLowerCase()) : '';
       }, 0, 1, true),
   NAME: wgxpath.FunctionCall.createFunc_('name',
       wgxpath.DataType.STRING, false, true, false,
