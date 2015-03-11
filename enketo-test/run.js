@@ -57,7 +57,7 @@ YUI().use("node", "test-console", function (Y) {
 		];
 		
 		if (!useNative) {
-			scripts.push("../wgxpath.install.js");
+			scripts.push("../build/wgxpath.install.js");
 		}
 		
 		// load all xpath scripts for this library
