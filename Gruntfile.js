@@ -3,27 +3,39 @@
 
 module.exports = function(grunt) {
 
-	require( 'time-grunt' )( grunt );
+    require( 'time-grunt' )( grunt );
 
-	grunt.initConfig({
-		karma: {
-			options: {
-				singleRun: true,
-				reporters: ['dots']
-			},
-			headless: {
-				configFile: 'enketo-test/karma.conf.js',
-				browsers: ['PhantomJS']
-			},
-			browsers: {
-				configFile: 'enketo-test/karma.conf.js',
-				browsers: ['Chrome', 'Firefox', 'Safari', 'Opera']
-			}
-		}
-	});
+    grunt.initConfig({
 
-	grunt.loadNpmTasks('grunt-karma');
-	grunt.loadNpmTasks('time-grunt');
+        connect: {
+            server: {
+                options: {
+                    port: 8000,
+                    keepalive: true,
+                    base:'..'
+                }
+            }
+        },
+        karma: {
+            options: {
+                singleRun: false,
+                reporters: ['dots']
+            },
+            /*headless: {
+                configFile: 'enketo-test/karma.conf.js',
+                browsers: ['PhantomJS']
+            },*/
+            browsers: {
+                configFile: 'enketo-test/karma.conf.js',
+                browsers: ['Chrome'/*, 'Firefox', 'Safari', 'Opera'*/]
+            }
+        }
+    });
 
-	grunt.registerTask('test', ['karma:headless']);
+    grunt.loadNpmTasks('grunt-contrib-connect');
+    grunt.loadNpmTasks('grunt-karma');
+    grunt.loadNpmTasks('time-grunt');
+
+    grunt.registerTask('serve', ['connect:server']);
+    grunt.registerTask('test', ['karma:headless']);
 };
