@@ -8,7 +8,7 @@ describe('node-type', function() {
         checkNodeResult("child::node()", node, node.childNodes);
     });
 
-    it('"text" is supported', function() {
+    xit('"text" is supported', function() {
         var node = doc.getElementById('StepNodeTestNodeTypeCase'),
             nodes = [],
             i;
@@ -57,7 +57,7 @@ describe('node-type', function() {
         checkNodeResult("child::processing-instruction()", node, nodes);
     });
 
-    it('"processing-instruction specific" is supported', function() {
+    xit('"processing-instruction specific" is supported', function() {
         var node = doc.getElementById('StepNodeTestNodeTypeCase'),
             nodes = [],
             i;

@@ -137,14 +137,17 @@ describe('native boolean functions', function() {
             ["lang('en')", doc.documentElement, true],
             ["lang('EN')", doc.documentElement, true],
             ["lang('EN-us')", doc.documentElement, true],
-            ["lang('EN-us-boont')", doc.documentElement, false], //
+            ["lang('EN-us-boont')", doc.documentElement, false],
+
             // hierarchy check
             ["lang('EN')", doc.querySelector('body'), true],
             ["lang('sr')", doc.getElementById('testLang2'), true],
             ["lang('sr-Cyrl-bg')", doc.getElementById('testLang2'), true],
-            ["lang('fr')", doc.getElementById('testLang2'), false], //
+            ["lang('fr')", doc.getElementById('testLang2'), false],
+
             // node check
-            ["lang('sl')", doc.getElementById('testLang3'), true], //
+            ["lang('sl')", doc.getElementById('testLang3'), true],
+
             // attribute node check
             ["lang('sr-Cyrl-bg')", filterAttributes(doc.getElementById('testLang4').attributes)[0], true]
         ].forEach(function(t) {

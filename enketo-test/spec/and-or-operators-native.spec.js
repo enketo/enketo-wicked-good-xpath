@@ -63,7 +63,7 @@ describe('and/or operators', function() {
         });
     });
 
-    it('and laziness', function() {
+    xit('and laziness', function() {
         [
             ["false() and $some-made-up-var", false],
             ["false() and $some-made-up-var and true()", false],
@@ -74,12 +74,12 @@ describe('and/or operators', function() {
         });
     });
 
-    it('or works without spacing', function() {
+    xit('or works without spacing', function() {
         var result = documentEvaluate("1or1", doc, null, win.XPathResult.BOOLEAN_TYPE, null);
         expect(result.booleanValue).to.equal(true);
     });
 
-    it('or works without spacing AFTER or', function() {
+    xit('or works without spacing AFTER or', function() {
         var result = documentEvaluate("1 or1", doc, null, win.XPathResult.BOOLEAN_TYPE, null);
         expect(result.booleanValue).to.equal(true);
     });

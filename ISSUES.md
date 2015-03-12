@@ -9,3 +9,10 @@ The following issues were found in wgxp:
 - using the union operator for a combination of a namespace node and attribute node
 - `"substring('12345', -1 div 0)"` is '' but probably should be '12345'
 - normalize-space() may not properly normalize vertical tabs `\v` and linefeeds `\f`
+- 'lazyness' for 'and' operator not supported (see  enketo-test/spec/and-or-operators-native.spec.js)
+- axis 'self' doesn't work with a document fragment node
+- none of the axes work with an attribute context node
+- axis 'preceding-sibling' doesn't work with a documentElement node
+- axis 'preceding' doesn't work with a CDATA context
+- axis 'preceding' doesn't work with a processing instruction context
+- axis 'name-space' is almost completely broken/unsupported

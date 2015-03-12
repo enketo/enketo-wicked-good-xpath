@@ -53,7 +53,7 @@ describe('native string functions', function() {
             ["string(/htmlnot)", doc, ""], // empty
             ["string(self::node())", doc.getElementById('FunctionStringCaseStringNodesetElement'), "aaa"], // element
             ["string()", doc.getElementById('FunctionStringCaseStringNodesetElement'), "aaa"], // element
-            ["string(node())", doc.getElementById('FunctionStringCaseStringNodesetElementNested'), "bbb"], // element nested
+            ["string(node())", doc.getElementById('FunctionStringCaseStringNodesetElementNested'), "bbb"], // element nested, fails in wgxp
             ["string(self::node())", doc.getElementById('FunctionStringCaseStringNodesetElementNested'), "bbbssscccddd"], // element nested
             ["string()", doc.getElementById('FunctionStringCaseStringNodesetElementNested'), "bbbssscccddd"], // element nested
             ["string()", doc.getElementById('FunctionStringCaseStringNodesetComment').firstChild, " hello world "], // comment

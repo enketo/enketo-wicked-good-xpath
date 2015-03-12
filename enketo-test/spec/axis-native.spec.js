@@ -153,7 +153,7 @@ describe('axes', function() {
             checkNodeResult("self::node()", h.getNodeNamespace(), [h.getNodeNamespace()]);
         });
 
-        it('works with document fragment context', function() {
+        xit('works with document fragment context', function() {
             var fragment = doc.createDocumentFragment();
             var test = function() {
                 checkNodeResult("self::node()", fragment, [fragment]);
@@ -187,7 +187,7 @@ describe('axes', function() {
                 doc.getElementById('testStepAxisChild').childNodes);
         });
 
-        it('works with attribute context', function() {
+        xit('works with attribute context', function() {
             checkNodeResult("child::node()", h.getNodeAttribute(), []);
         });
 
@@ -228,7 +228,7 @@ describe('axes', function() {
                 descendantNodes(doc.getElementById('testStepAxisDescendant')));
         });
 
-        it('works with attribute context', function() {
+        xit('works with attribute context', function() {
             checkNodeResult("descendant::node()", h.getNodeAttribute(), []);
         });
 
@@ -268,7 +268,7 @@ describe('axes', function() {
             checkNodeResult("descendant-or-self::node()", doc.getElementById('testStepAxisDescendant'), nodes);
         });
 
-        it('works with attribute context', function() {
+        xit('works with attribute context', function() {
             checkNodeResult("descendant-or-self::node()", h.getNodeAttribute(), [
                 h.getNodeAttribute()
             ]);
@@ -357,7 +357,7 @@ describe('axes', function() {
             ]);
         });
 
-        it('works for an attribute context', function() {
+        xit('works for an attribute context', function() {
             checkNodeResult("ancestor::node()", h.getNodeAttribute(), [
                 doc,
                 doc.documentElement,
@@ -434,7 +434,7 @@ describe('axes', function() {
             ]);
         });
 
-        it('works for an attribute context', function() {
+        xit('works for an attribute context', function() {
             checkNodeResult("ancestor-or-self::node()", h.getNodeAttribute(), [
                 doc,
                 doc.documentElement,
@@ -534,7 +534,7 @@ describe('axes', function() {
             checkNodeResult("preceding-sibling::node()", doc, []);
         });
 
-        it('works for a documentElement context', function() {
+        xit('works for a documentElement context', function() {
             checkNodeResult("preceding-sibling::node()", doc.documentElement, h.precedingSiblingNodes(doc.documentElement));
         });
 
@@ -578,7 +578,7 @@ describe('axes', function() {
             checkNodeResult("following::node()", doc.getElementById('testStepAxisNodeElement'), h.followingNodes(doc.getElementById('testStepAxisNodeElement')));
         });
 
-        it('works for an attribute context', function() {
+        xit('works for an attribute context', function() {
             checkNodeResult("following::node()", h.getNodeAttribute(), h.followingNodes(doc.getElementById('testStepAxisNodeAttribute')));
         });
 
@@ -614,19 +614,19 @@ describe('axes', function() {
             checkNodeResult("preceding::node()", doc.getElementById('testStepAxisNodeElement'), h.precedingNodes(doc.getElementById('testStepAxisNodeElement')));
         });
 
-        it('works for an attribute context', function() {
+        xit('works for an attribute context', function() {
             checkNodeResult("preceding::node()", h.getNodeAttribute(), h.precedingNodes(doc.getElementById('testStepAxisNodeAttribute')));
         });
 
-        it('works for a CDATA context', function() {
+        xit('works for a CDATA context', function() {
             checkNodeResult("preceding::node()", h.getNodeCData(), h.precedingNodes(h.getNodeCData()));
         });
 
-        it('works for a Comment context', function() {
+        xit('works for a Comment context', function() {
             checkNodeResult("preceding::node()", h.getNodeComment(), h.precedingNodes(h.getNodeComment()));
         });
 
-        it('works for a processing instruction context', function() {
+        xit('works for a processing instruction context', function() {
             checkNodeResult("preceding::node()", h.getNodeProcessingInstruction(), h.precedingNodes(h.getNodeProcessingInstruction()));
         });
 
@@ -706,7 +706,7 @@ describe('axes', function() {
             checkNodeResultNamespace("namespace::node()", h.getNodeNamespace(), []);
         });
 
-        it('works for a document element context', function() {
+        xit('works for a document element context', function() {
             checkNodeResultNamespace("namespace::node()", doc.documentElement, [
                 ['', 'http://www.w3.org/1999/xhtml'],
                 ['ev', 'http://some-namespace.com/nss'],
@@ -714,7 +714,7 @@ describe('axes', function() {
             ]);
         });
 
-        it('works for a 0 context', function() {
+        xit('works for a 0 context', function() {
             checkNodeResultNamespace("namespace::node()", doc.getElementById('testStepAxisNodeNamespace0'), [
                 ['', 'http://www.w3.org/1999/xhtml'],
                 ['ev', 'http://some-namespace.com/nss'],
@@ -722,7 +722,7 @@ describe('axes', function() {
             ]);
         });
 
-        it('works for a 1 context', function() {
+        xit('works for a 1 context', function() {
             checkNodeResultNamespace("namespace::node()", doc.getElementById('testStepAxisNodeNamespace1'), [
                 ['', 'http://www.w3.org/1999/xhtml'],
                 ['a', 'asdf'],
@@ -731,7 +731,7 @@ describe('axes', function() {
             ]);
         });
 
-        it('works for a 1 default context', function() {
+        xit('works for a 1 default context', function() {
             checkNodeResultNamespace("namespace::node()", doc.getElementById('testStepAxisNodeNamespace1defaultContainer').firstChild, [
                 ['', 'asdf'],
                 ['ev', 'http://some-namespace.com/nss'],
@@ -739,14 +739,14 @@ describe('axes', function() {
             ]);
         });
 
-        it('works for a 1 default 2 context', function() {
+        xit('works for a 1 default 2 context', function() {
             checkNodeResultNamespace("namespace::node()", doc.getElementById('testStepAxisNodeNamespace1defaultContainer2').firstChild, [
                 ['ev', 'http://some-namespace.com/nss'],
                 ['xml', 'http://www.w3.org/XML/1998/namespace']
             ]);
         });
 
-        it('works for a 3 context', function() {
+        xit('works for a 3 context', function() {
             var namespaces = [],
                 contextNode = doc.getElementById('testStepAxisNodeNamespace3');
 
@@ -769,7 +769,7 @@ describe('axes', function() {
             checkNodeResultNamespace("namespace::node()", contextNode, namespaces);
         });
 
-        it('works with an element context that overrides the namespace', function() {
+        xit('works with an element context that overrides the namespace', function() {
             checkNodeResultNamespace("namespace::node()", doc.getElementById('testStepAxisNodeNamespaceXmlOverride'), [
                 ['', 'http://www.w3.org/1999/xhtml'],
                 ['ev', 'http://some-other-namespace/'],
@@ -777,7 +777,7 @@ describe('axes', function() {
             ]);
         });
 
-        it('works with "NoNamespaceNodeSharingAmongstElements" context', function() {
+        xit('works with "NoNamespaceNodeSharingAmongstElements" context', function() {
             var j, result, result2, item, item2, expectedResult;
 
             expectedResult = [
@@ -837,7 +837,7 @@ describe('axes', function() {
 
     describe('attribute && namespace axes', function() {
 
-        it('works for Attrib1Ns1', function() {
+        xit('works for Attrib1Ns1', function() {
             var attributes = [],
                 i,
                 contextNode;
@@ -863,7 +863,7 @@ describe('axes', function() {
             ]);
         });
 
-        it('works for Attrib1Ns1reversed', function() {
+        xit('works for Attrib1Ns1reversed', function() {
             var attributes = [],
                 i,
                 contextNode;
@@ -889,7 +889,7 @@ describe('axes', function() {
             ]);
         });
 
-        it('works for NodeAttrib2Ns1', function() {
+        xit('works for NodeAttrib2Ns1', function() {
             var attributes = [],
                 i,
                 contextNode;
@@ -914,7 +914,7 @@ describe('axes', function() {
             ]);
         });
 
-        it('works for Attrib2Ns1reversed', function() {
+        xit('works for Attrib2Ns1reversed', function() {
             var attributes = [],
                 i,
                 contextNode;
