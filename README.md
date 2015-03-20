@@ -1,6 +1,8 @@
 Enketo Wicked Good XPath 
 ==============
 
+# THIS REPO IS ABANDONED AND WAS NEVER FINISHED
+
 Fork of [Wicked good XPath](https://code.google.com/p/wicked-good-xpath/) with Enketo/ODK/OpenRosa functionality added
 
 
